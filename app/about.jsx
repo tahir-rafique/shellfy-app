@@ -1,12 +1,17 @@
 import { Link } from 'expo-router'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, useColorScheme } from 'react-native'
+
+import { Colors } from "../constant/Colors";
 
 const About = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>About Page</Text>
 
-      <Link href="/" style={styles.link}>Home Page</Link>
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme] ?? Colors.light;  // check the nulleish value if true apply the fallback theme with all Light Colors.
+
+  return (
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <Text style={[styles.title, { color: theme.text }]}>About Page</Text>
+      <Link href="/" style={[styles.link, { color: theme.text }]}>Home Page</Link>
     </View>
   )
 }
