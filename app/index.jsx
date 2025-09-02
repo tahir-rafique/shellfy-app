@@ -1,50 +1,78 @@
-import { StatusBar } from 'expo-status-bar';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, useColorScheme } from "react-native";
 
-import { Link } from 'expo-router';
+import { Colors } from "../constant/Colors";
+
 // import logo from '../assets/favicon.png'
+// import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { Link } from "expo-router";
 
-import ThemeView from '../components/ThemeView';
+// themed Components
+
+import ThemeView from "../components/ThemeView";
+import ThemedLogo from "./../components/ThemeLogo";
+import Spacer from "../components/Spacer";
+import ThemedText from "../components/ThemeText";
+
+// import { useState } from "react";
 
 export default function App() {
+  const colorScheme = useColorScheme();
+  const theme = Colors[colorScheme] ?? Colors.light;
+
+  // const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <ThemeView style={styles.container}>
       <StatusBar style="auto" />
       {/*  multiple-styles in single element */}
-      <Image style={[styles.img, { marginVertical: 20 }]} source={require('../assets/images/logo_light.png')} />
+      {/* <Image style={[styles.img, { marginVertical: 20 }]} source={require('../assets/images/logo_light.png')} /> */}
+      <ThemedLogo style={styles.img} />
+      <Spacer height={10} />
       <Text style={styles.title}>The Number 1</Text>
       <Text style={styles.subTitle}>Reading List app!</Text>
       {/* <Image source={logo} /> */}
       {/* <Image source={{ uri:'https://freepick/myLogoImage'}} /> */}
-      <View style={styles.card}>
-        <Text>Hello</Text>
-      </View>
+      <Spacer height={20} />
+      <Link
+        href="/register"
+        style={[styles.link, { borderBottomColor: theme.navBackground }]}
+      >
+        <ThemedText>Register Page</ThemedText>
+      </Link>
+      <Spacer height={10} />
 
-      <Link href="/about" style={styles.link}>About Page</Link>
-      <Link href="/contact" style={styles.link}>Contact Page</Link>
+      <Link
+        href="/login"
+        style={[styles.link, { borderBottomColor: theme.navBackground }]}
+      >
+        <ThemedText>Login Page</ThemedText>
+      </Link>
+      <Spacer height={10} />
+
+      <Link
+        href="/profile"
+        style={[styles.link, { borderBottomColor: theme.navBackground }]}
+      >
+        <ThemedText>Profile Page</ThemedText>
+      </Link>
+
     </ThemeView>
-
   );
 }
-
-
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  img: {
-    marginVertical: 20
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
   },
   link: {
-    marginVertical: 10,
-    borderBottomWidth: 1
-  }
-})
+    borderBottomWidth: 1,
+    paddingBottom: 2,
+  },
+});
