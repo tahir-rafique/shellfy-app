@@ -1,27 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, useColorScheme } from "react-native";
-
 import { Colors } from "../constant/Colors";
-
 // import logo from '../assets/favicon.png'
 // import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { Link } from "expo-router";
-
 // themed Components
-
 import ThemeView from "../components/ThemeView";
 import ThemedLogo from "./../components/ThemeLogo";
 import Spacer from "../components/Spacer";
 import ThemedText from "../components/ThemeText";
-
 // import { useState } from "react";
-
 export default function App() {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
-
   // const [modalVisible, setModalVisible] = useState(false);
-
   return (
     <ThemeView style={styles.container}>
       <StatusBar style="auto" />
@@ -40,23 +32,20 @@ export default function App() {
       >
         <ThemedText>Register Page</ThemedText>
       </Link>
-      <Spacer height={10} />
-
+      <Spacer height={30} />
       <Link
         href="/login"
         style={[styles.link, { borderBottomColor: theme.navBackground }]}
       >
         <ThemedText>Login Page</ThemedText>
       </Link>
-      <Spacer height={10} />
-
+      <Spacer height={30} />
       <Link
         href="/profile"
         style={[styles.link, { borderBottomColor: theme.navBackground }]}
       >
         <ThemedText>Profile Page</ThemedText>
       </Link>
-
     </ThemeView>
   );
 }
