@@ -3,7 +3,6 @@ import { useColorScheme } from "react-native";
 import { Colors } from "../constant/Colors";
 import { StatusBar } from "expo-status-bar";
 import { UserProvider } from "../contexts/UserContext";
-// import { UserProvider } from "../contexts/userContext";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

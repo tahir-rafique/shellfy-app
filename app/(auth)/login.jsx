@@ -2,7 +2,8 @@ import { StyleSheet, Text, Keyboard, TouchableWithoutFeedback, } from 'react-nat
 
 import { Link } from "expo-router";
 import { useState } from 'react';
-// import { useUser } from './../../hooks/useUser';
+import { useUser } from '../../hooks/useUser';
+
 
 // themed Components
 import ThemedText from "./../../components/ThemeText";
@@ -16,15 +17,24 @@ export default function Login() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [error, setError] = useState(null)
 
 
-  // const { user } = useUser()
+  const { login } = useUser();
 
 
-  const handleSubmit = () => {
-    // console.log('current user:', user);
-    
-    console.log("Login form submitted \nEmail:", email, "\nPassword:", password);
+  const handleSubmit = async () => {
+
+    setError(null);
+
+
+    try {
+      await login(email, password);
+    } catch (error) {
+      setError(error.message)
+    }
+
+    // console.log("Login form submitted \nEmail:", email, "\nPassword:", password);
     setEmail("");
     setPassword("");
   };
@@ -59,6 +69,10 @@ export default function Login() {
           <Text style={{ color: "#f2f2f2" }}>Login</Text>
         </ThemedButton>
 
+        <Spacer />
+
+        {error && <Text style={styles.error}>{error}</Text>}
+
         <Spacer height={100} />
         <Link href="/register" replace>
           <ThemedText style={{ textAlign: "center" }}>
@@ -66,7 +80,7 @@ export default function Login() {
           </ThemedText>
         </Link>
       </ThemedView>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback >
 
   );
 }
@@ -82,4 +96,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 2,
   },
+
+  error: {
+    color: '#000',
+    fontWeight: 800,
+    textAlign: 'center',
+    width: '80%',
+    backgroundColor: 'aqua',
+    borderRadius: 6,
+    padding: 5,
+  }
 });

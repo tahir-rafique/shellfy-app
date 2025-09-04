@@ -18,6 +18,7 @@ export default function DashboardLayout() {
         },
         tabBarActiveTintColor: theme.iconColor,
         tabBarInactiveTintColor: theme.iconColorFocused,
+        
       }}
     >
       <Tabs.Screen

@@ -1,20 +1,38 @@
 import { StyleSheet } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import Spacer from "../../components/Spacer";
+import { useUser } from './../../hooks/useUser';
 
+
+import Spacer from "../../components/Spacer";
 import ThemeView from "../../components/ThemeView";
 import ThemedText from "../../components/ThemeText";
+import ThemedButton from './../../components/ThemeButton';
+
 const Profile = () => {
+
+  const { logout, user } = useUser();
+
   return (
     <ThemeView style={styles.container}>
+
       <ThemedText title={true} style={styles.heading}>
-        Your Email
+        {user?.email ?? "No email"}
       </ThemedText>
+
       <Spacer />
+
       <ThemedText>Time to start reading some books...</ThemedText>
       <Spacer />
-      <Ionicons name="checkmark-circle" size={32} color="green" />
+
+
+      {/* Log out button */}
+      <ThemedButton onPress={logout}>
+        <ThemedText title={true} style={{ color: '#fff' }}>
+          LogOut
+        </ThemedText>
+      </ThemedButton>
+
     </ThemeView>
+
   );
 };
 
