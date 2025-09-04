@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Spacer from "../../components/Spacer";
 
 import ThemeView from "../../components/ThemeView";

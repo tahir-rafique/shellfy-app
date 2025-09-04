@@ -1,22 +1,25 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, useColorScheme } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import { Colors } from "../constant/Colors";
 // import logo from '../assets/favicon.png'
 // import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { Link } from "expo-router";
+
 // themed Components
 import ThemeView from "../components/ThemeView";
-import ThemedLogo from "./../components/ThemeLogo";
-import Spacer from "../components/Spacer";
+import ThemedLogo from "../components/ThemeLogo";
 import ThemedText from "../components/ThemeText";
-// import { useState } from "react";
+import Spacer from "../components/Spacer";
+
 export default function App() {
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
-  // const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <ThemeView style={styles.container}>
-      <StatusBar style="auto" />
+    <ThemeView style={styles.container} safe={true}>
+
+      <StatusBar value="auto" />
+
       {/*  multiple-styles in single element */}
       {/* <Image style={[styles.img, { marginVertical: 20 }]} source={require('../assets/images/logo_light.png')} /> */}
       <ThemedLogo style={styles.img} />
@@ -46,7 +49,10 @@ export default function App() {
       >
         <ThemedText>Profile Page</ThemedText>
       </Link>
+
+
     </ThemeView>
+
   );
 }
 
