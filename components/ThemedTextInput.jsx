@@ -14,7 +14,6 @@ export default function ThemedTextInput({ style, ...props }) {
           color: theme.text,
           padding: 20,
           borderRadius: 6,
-         
         },
         style,
       ]}

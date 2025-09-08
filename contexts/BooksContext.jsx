@@ -1,11 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import { client, databases } from "../lib/appwriteConfig";
 import { ID, Permission, Query, Role } from "react-native-appwrite";
-import { useUser } from './../hooks/useUser';
+import { useUser } from "./../hooks/useUser";
 
-
-const DATABASE_ID = "68ba820f000098d77a7b"
-const COLLECTION_ID = "books"
+const DATABASE_ID = "68ba820f000098d77a7b";
+const COLLECTION_ID = "books";
 // table or collection both are same in AppWrite database.
 
 export const BooksContext = createContext();
@@ -19,12 +18,10 @@ export function BooksProvider({ children }) {
       const response = await databases.listDocuments(
         DATABASE_ID,
         COLLECTION_ID,
-        [
-          Query.equal('userId', user.$id)
-        ]
-      )
-      setBooks(response.documents)
-      console.log(response.documents)
+        [Query.equal("userId", user.$id)],
+      );
+      setBooks(response.documents);
+      console.log(response.documents);
     } catch (error) {
       console.log(error.message);
     }
@@ -35,10 +32,10 @@ export function BooksProvider({ children }) {
       const response = await databases.getDocument(
         DATABASE_ID,
         COLLECTION_ID,
-        id
-      )
+        id,
+      );
 
-      return response
+      return response;
     } catch (error) {
       console.log(error.message);
     }
@@ -47,7 +44,6 @@ export function BooksProvider({ children }) {
   async function createBook(data) {
     try {
       const newBook = await databases.createDocument(
-
         DATABASE_ID,
         COLLECTION_ID,
         ID.unique(),
@@ -56,55 +52,47 @@ export function BooksProvider({ children }) {
           Permission.read(Role.user(user.$id)),
           Permission.update(Role.user(user.$id)),
           Permission.delete(Role.user(user.$id)),
-        ]
-      )
+        ],
+      );
     } catch (error) {
       console.log(error.message);
     }
   }
 
-   async function deleteBook(id) {
+  async function deleteBook(id) {
     try {
-      await databases.deleteDocument(
-        DATABASE_ID,
-        COLLECTION_ID,
-        id,
-      )
+      await databases.deleteDocument(DATABASE_ID, COLLECTION_ID, id);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   }
 
-  
   useEffect(() => {
-    let unsubscribe
-    const channel = `database.${ DATABASE_ID }.collections.${ COLLECTION_ID }.documents`
+    let unsubscribe;
+    const channel = `database.${DATABASE_ID}.collections.${COLLECTION_ID}.documents`;
     if (user) {
-      fetchBooks()
+      fetchBooks();
 
       unsubscribe = client.subscribe(channel, (response) => {
-        const { payload, events } = response
+        const { payload, events } = response;
 
-        if (events[0].includes('create')) {
+        if (events[0].includes("create")) {
           setBooks((prevBooks) => [...prevBooks, payload]);
         }
 
         if (events[0].includes("delete")) {
-          setBooks((prevBooks) => prevBooks.filter((book) => book.$id !== payload.$id))
+          setBooks((prevBooks) =>
+            prevBooks.filter((book) => book.$id !== payload.$id),
+          );
         }
-
-      })
-    } else (
-      setBooks([])
-    )
+      });
+    } else setBooks([]);
 
     // clean-up run before the useEffect executed
     return () => {
-      if (unsubscribe) unsubscribe()
-    }
-
-  }, [user])
-
+      if (unsubscribe) unsubscribe();
+    };
+  }, [user]);
 
   return (
     <BooksContext.Provider

@@ -2,21 +2,18 @@ import { FlatList, Pressable, StyleSheet } from "react-native";
 import { useBooks } from "../../hooks/useBooks";
 import { Colors } from "../../constant/Colors";
 
-
 //  themed Components
 import ThemedText from "./../../components/ThemeText";
 import ThemedView from "./../../components/ThemeView";
-import ThemedCard from './../../components/ThemeCard';
+import ThemedCard from "./../../components/ThemeCard";
 import Spacer from "./../../components/Spacer";
 import { useRouter } from "expo-router";
-
 
 //  /books/1234   -----> dynamic routes
 
 const Books = () => {
-
-  const { books } = useBooks()
-  const router = useRouter()
+  const { books } = useBooks();
+  const router = useRouter();
 
   return (
     <ThemedView style={styles.container} safe={true}>
@@ -27,16 +24,27 @@ const Books = () => {
       </ThemedText>
       <Spacer />
 
-      {books ?
-        <ThemedText style={{ marginHorizontal: 'auto', color: 'red', fontSize:20, textAlign:'center' }}>404 No book found in database!</ThemedText>
-        :
+      {books ? (
+        <ThemedText
+          style={{
+            marginHorizontal: "auto",
+            color: "red",
+            fontSize: 20,
+            textAlign: "center",
+          }}
+        >
+          404 No book found in database!
+        </ThemedText>
+      ) : (
         <FlatList
           data={books}
           keyExtractor={(item) => item.$id}
           contentContainerStyle={styles.list}
           renderItem={({ item }) => (
             <Pressable
-              onPress={() => { router.push(`/books/${ item.$id }`) }}
+              onPress={() => {
+                router.push(`/books/${item.$id}`);
+              }}
             >
               <ThemedCard style={styles.card}>
                 <ThemedText style={styles.title}>{item.title}</ThemedText>
@@ -45,10 +53,7 @@ const Books = () => {
             </Pressable>
           )}
         />
-      }
-
-
-
+      )}
     </ThemedView>
   );
 };
@@ -66,7 +71,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   list: {
-    marginTop: 40
+    marginTop: 40,
   },
   card: {
     width: "90%",
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 14,
     borderLeftColor: Colors.primary,
-    borderLeftWidth: 4
+    borderLeftWidth: 4,
   },
   title: {
     fontSize: 20,

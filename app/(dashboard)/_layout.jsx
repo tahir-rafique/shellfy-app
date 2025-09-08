@@ -65,12 +65,8 @@ export default function DashboardLayout() {
           }}
         />
 
-
         {/*  hide tab naivgation from bottom */}
-        <Tabs.Screen
-          name="books/[id]"
-          options={{ href: null }}
-        />
+        <Tabs.Screen name="books/[id]" options={{ href: null }} />
       </Tabs>
     </UserOnly>
   );
