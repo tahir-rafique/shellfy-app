@@ -63,7 +63,7 @@ export function BooksProvider({ children }) {
     }
   }
 
-  async function deleteBook(id) {
+   async function deleteBook(id) {
     try {
       await databases.deleteDocument(
         DATABASE_ID,
@@ -71,11 +71,11 @@ export function BooksProvider({ children }) {
         id,
       )
     } catch (error) {
-      console.log(error.message);
+      console.log(error.message)
     }
   }
 
-
+  
   useEffect(() => {
     let unsubscribe
     const channel = `database.${ DATABASE_ID }.collections.${ COLLECTION_ID }.documents`
