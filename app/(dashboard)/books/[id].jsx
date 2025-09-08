@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native'
 import { useEffect, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Colors } from '../../../constant/Colors'
-
 import { useBooks } from '../../../hooks/useBooks'
 
 

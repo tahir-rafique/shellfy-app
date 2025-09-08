@@ -27,21 +27,28 @@ const Books = () => {
       </ThemedText>
       <Spacer />
 
-      <FlatList
-        data={books}
-        keyExtractor={(item) => item.$id}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <Pressable
-            onPress={() => { router.push(`/books/${item.$id}`) }}
-          > 
-            <ThemedCard style={styles.card}>
-              <ThemedText style={styles.title}>{item.title}</ThemedText>
-              <ThemedText>Written by {item.author}</ThemedText>
-            </ThemedCard>
-          </Pressable>
-        )}
-      />
+      {books ?
+        <ThemedText style={{ marginHorizontal: 'auto', color: 'red', fontSize:20, textAlign:'center' }}>404 No book found in database!</ThemedText>
+        :
+        <FlatList
+          data={books}
+          keyExtractor={(item) => item.$id}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => { router.push(`/books/${ item.$id }`) }}
+            >
+              <ThemedCard style={styles.card}>
+                <ThemedText style={styles.title}>{item.title}</ThemedText>
+                <ThemedText>Written by {item.author}</ThemedText>
+              </ThemedCard>
+            </Pressable>
+          )}
+        />
+      }
+
+
+
     </ThemedView>
   );
 };
