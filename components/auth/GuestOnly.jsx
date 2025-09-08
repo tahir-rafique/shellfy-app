@@ -1,25 +1,23 @@
-import { useUser } from './../../hooks/useUser';
-import { useRouter } from 'expo-router'
-import { useEffect } from 'react'
-import { Text } from 'react-native'
+import { useUser } from "./../../hooks/useUser";
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
+import ThemeLoader from "../ThemeLoader";
 
 const GuestOnly = ({ children }) => {
-    const { user, authChecked } = useUser()
-    const router = useRouter()
+  const { user, authChecked } = useUser();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (authChecked && user !== null) {
-            router.replace("/profile")
-        }
-    }, [user, authChecked])
-
-    if (!authChecked || user) {
-        return (
-            <Text>Loading</Text>
-        )
+  useEffect(() => {
+    if (authChecked && user !== null) {
+      router.replace("/profile");
     }
+  }, [user, authChecked]);
 
-    return children
-}
+  if (!authChecked || user) {
+    return <ThemeLoader />;
+  }
 
-export default GuestOnly
+  return children;
+};
+
+export default GuestOnly;

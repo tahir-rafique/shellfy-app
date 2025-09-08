@@ -11,7 +11,6 @@ export default function DashboardLayout() {
 
   return (
     <UserOnly>
-
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -22,7 +21,6 @@ export default function DashboardLayout() {
           },
           tabBarActiveTintColor: theme.iconColor,
           tabBarInactiveTintColor: theme.iconColorFocused,
-
         }}
       >
         <Tabs.Screen
@@ -66,8 +64,14 @@ export default function DashboardLayout() {
             ),
           }}
         />
+
+
+        {/*  hide tab naivgation from bottom */}
+        <Tabs.Screen
+          name="books/[id]"
+          options={{ href: null }}
+        />
       </Tabs>
     </UserOnly>
-
   );
 }

@@ -17,7 +17,6 @@ export default function App() {
 
   return (
     <ThemeView style={styles.container} safe={true}>
-
       <StatusBar value="auto" />
 
       {/*  multiple-styles in single element */}
@@ -49,10 +48,7 @@ export default function App() {
       >
         <ThemedText>Profile Page</ThemedText>
       </Link>
-
-
     </ThemeView>
-
   );
 }
 
